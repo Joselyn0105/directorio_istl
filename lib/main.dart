@@ -9,10 +9,43 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+        appBar: AppBar(
+          title: Text("Directorio IST La Troncal"),
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.amber,
+        ),
+        body: ListView(
+          children: [
+            ListTile(
+              leading: Icon(Icons.person, color: Colors.blue),
+              title: Text("Ing. Isrrael Zurita"),
+              subtitle: Text("Desarrollo de Aplicaciones Web"),
+              trailing: Icon(
+                Icons.star,
+                color: const Color.fromARGB(255, 162, 210, 240),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.person, color: Colors.blue),
+              title: Text("Ing. Angel Novillo"),
+              subtitle: Text("Desarrollo de Aplicaciones Web"),
+              trailing: Icon(
+                Icons.star,
+                color: const Color.fromARGB(255, 162, 210, 240),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.person, color: Colors.blue),
+              title: Text("Ing. Cecilia Naula"),
+              subtitle: Text("Desarrollo de Aplicaciones Web"),
+              trailing: Icon(
+                Icons.star,
+                color: const Color.fromARGB(255, 162, 210, 240),
+              ),
+            ),
+          ],
         ),
       ),
     );
