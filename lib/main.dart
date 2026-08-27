@@ -1,4 +1,3 @@
-import 'package:directorio_istl/docente.dart';
 import 'package:flutter/material.dart';
 import 'docente.dart';
 
@@ -6,17 +5,15 @@ void main() {
   runApp(MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   MainApp({super.key});
 
-  Docente docente1 = Docente(
-    nombres: "Angel",
-    apellidos: "Novillo",
-    carrera: "DAW",
-    nivelEstudios: "Mgtr",
-  );
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
 
-  List<Docente> listaDocenete = [
+class _MainAppState extends State<MainApp> {
+  List<Docente> listaDocentes = [
     Docente(
       nombres: "Israel",
       apellidos: "Zurita",
@@ -35,8 +32,20 @@ class MainApp extends StatelessWidget {
       carrera: "DAW",
       nivelEstudios: "Msg",
     ),
+    Docente(
+      nombres: "María",
+      apellidos: "Delgado",
+      carrera: "DAW",
+      nivelEstudios: "Ing",
+    ),
+    Docente(
+      nombres: "Aide",
+      apellidos: "Macias",
+      carrera: "DAW",
+      nivelEstudios: "Ing",
+    ),
   ];
-  int indiceDocente = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,105 +55,34 @@ class MainApp extends StatelessWidget {
           backgroundColor: Colors.blue,
           foregroundColor: Colors.amber,
         ),
-        body: ListView(
-          padding: EdgeInsets.all(10),
-          children: [
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text(
-                "${docente1.nivelEstudios} ${docente1.nombres} ${docente1.apellidos}",
-              ),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text(
-                "${listaDocenete[indiceDocente].nivelEstudios} ${listaDocenete[indiceDocente].nombres} ${listaDocenete[indiceDocente].apellidos}",
-              ),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text("Ing. Cecilia Naula"),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text("Ing. Isrrael Zurita"),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text("Ing. Angel Novillo"),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text("Ing. Cecilia Naula"),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text("Ing. Isrrael Zurita"),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text("Ing. Angel Novillo"),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person, color: Colors.blue),
-              title: Text("Ing. Cecilia Naula"),
-              subtitle: Text("Desarrollo de Aplicaciones Web"),
-              trailing: Icon(
-                Icons.star,
-                color: const Color.fromARGB(255, 162, 210, 240),
-              ),
-            ),
-            Divider(),
-          ],
+        body: ListView.separated(
+          padding: const EdgeInsets.all(18),
+          itemCount: listaDocentes.length,
+          separatorBuilder: (context, index) => const Divider(),
+          itemBuilder: (context, index) {
+            return _buildDocenteTile(listaDocentes[index]);
+          },
         ),
+      ),
+    );
+  }
+
+  Widget _buildDocenteTile(Docente docente) {
+    return ListTile(
+      leading: const CircleAvatar(child: Icon(Icons.person)),
+      title: Text("${docente.nombres} ${docente.apellidos}"),
+      subtitle: Text("${docente.carrera} - ${docente.nivelEstudios}"),
+      trailing: IconButton(
+        icon: Icon(
+          docente.esFavorito ? Icons.star : Icons.star_border,
+          color: docente.esFavorito ? Colors.amber : Colors.grey,
+          size: 24,
+        ),
+        onPressed: () {
+          setState(() {
+            docente.esFavorito = !docente.esFavorito;
+          });
+        },
       ),
     );
   }
