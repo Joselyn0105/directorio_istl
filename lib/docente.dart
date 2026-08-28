@@ -1,8 +1,22 @@
-class Docente {
+import 'package:hive_ce/hive.dart';
+
+part 'docente.g.dart'; // archivo que generará build_runner
+
+@HiveType(typeId: 0)
+class Docente extends HiveObject {
+  @HiveField(0)
   String nombres;
+
+  @HiveField(1)
   String apellidos;
-  String carrera;
+
+  @HiveField(2)
   String nivelEstudios;
+
+  @HiveField(3)
+  String carrera;
+
+  @HiveField(4)
   bool esFavorito;
 
   Docente({
